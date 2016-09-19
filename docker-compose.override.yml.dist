@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  nginx:
+    environment:
+      - DEFAULT_HOST=tripviss.com
+    networks:
+      - tripviss-api
+      - tripviss-web-admin
+      - tripviss-web-app
+
+  nginx-gen:
+    networks:
+      - tripviss-api
+      - tripviss-web-admin
+      - tripviss-web-app
+
+networks:
+  tripviss-api:
+    external:
+      name: tripvissapi_default
+  tripviss-web-admin:
+    external:
+      name: tripvisswebadmin_default
+  tripviss-web-app:
+    external:
+      name: tripvisswebapp_default
