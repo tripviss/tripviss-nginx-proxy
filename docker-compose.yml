@@ -25,7 +25,7 @@ services:
 
   nginx-letsencrypt:
     environment:
-      - NGINX_DOCKER_GEN_CONTAINER=nginx-gen
+      - NGINX_DOCKER_GEN_CONTAINER
     image: jrcs/letsencrypt-nginx-proxy-companion
     volumes:
       - ./certs:/etc/nginx/certs:rw
