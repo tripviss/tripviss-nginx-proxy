@@ -1,3 +1,4 @@
 *
 !/.gitignore
-!/www.tripviss.com
+!/*.tripviss.com
+!/tripviss.com
