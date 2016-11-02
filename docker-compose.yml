@@ -21,7 +21,8 @@ services:
       - ./nginx-proxy/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
       - ./vhost.d:/etc/nginx/vhost.d
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - nginx-conf:/etc/nginx/conf.d
+    volumes_from:
+      - nginx
 
   nginx-letsencrypt:
     environment:
@@ -31,7 +32,8 @@ services:
       - ./certs:/etc/nginx/certs:rw
       - ./vhost.d:/etc/nginx/vhost.d
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - nginx-default-root:/usr/share/nginx/html
+    volumes_from:
+      - nginx
 
 volumes:
   nginx-conf: {}

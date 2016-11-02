@@ -10,6 +10,8 @@ services:
       - tripviss-web-app
 
   nginx-gen:
+    environment:
+      - DEFAULT_HOST=tripviss.com
     networks:
       - tripviss-api
       - tripviss-web-admin
