@@ -1,4 +1,8 @@
 *
 !/.gitignore
+!/*.tripviss
 !/*.tripviss.com
+!/*.tripviss.com_location
+!/*.tripviss_location
 !/tripviss.com
+!/tripviss.com_location
