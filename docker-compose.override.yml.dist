@@ -1,0 +1,5 @@
+version: '2'
+
+services:
+  nginx:
+    image: quay.io/tripviss/tripviss-nginx-proxy:nginx
