@@ -2,16 +2,14 @@ version: '2'
 
 services:
   nginx:
-    build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
+    image: nginx:1.11-alpine
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - ./certs:/etc/nginx/certs:ro
+      - ./vhost.d:/etc/nginx/vhost.d:ro
       - /etc/nginx/conf.d
-      - /etc/nginx/vhost.d
       - /usr/share/nginx/html
       - nginx-logs:/var/log/nginx
 
@@ -21,6 +19,7 @@ services:
     volumes:
       - ./certs:/etc/nginx/certs:ro
       - ./nginx-proxy/nginx.tmpl:/etc/docker-gen/templates/nginx.tmpl:ro
+      - ./vhost.d:/etc/nginx/vhost.d:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
     volumes_from:
       - nginx
@@ -31,6 +30,7 @@ services:
     image: quay.io/teohhanhui/docker-letsencrypt-nginx-proxy-companion
     volumes:
       - ./certs:/etc/nginx/certs:rw
+      - ./vhost.d:/etc/nginx/vhost.d:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     volumes_from:
       - nginx
