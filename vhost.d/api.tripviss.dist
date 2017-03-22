@@ -1,4 +1,5 @@
-client_max_body_size 61m;
 ssl_verify_client optional;
-ssl_verify_depth 1;
 ssl_client_certificate /etc/nginx/certs/api.tripviss.client-chain.crt;
+ssl_verify_depth 1;
+
+client_max_body_size 61m;

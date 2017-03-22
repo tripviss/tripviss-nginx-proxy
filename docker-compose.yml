@@ -8,6 +8,7 @@ services:
       - '443:443'
     volumes:
       - ./certs:/etc/nginx/certs:ro
+      - ./proxy_headers.conf:/etc/nginx/proxy_headers.conf
       - ./vhost.d:/etc/nginx/vhost.d:ro
       - /etc/nginx/conf.d
       - /usr/share/nginx/html
