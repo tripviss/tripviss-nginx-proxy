@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  nginx:
+    deploy:
+      placement:
+        constraints:
+          - node.id == $DOCKER_NODE_ID
+    image: quay.io/tripviss/tripviss-nginx-proxy:nginx
+    labels:
+      - 'com.github.jwilder.nginx_proxy.nginx'
+    networks:
+      - default
+    ports:
+      - '80:80'
+      - '443:443'
+
+  nginx-gen:
+    deploy:
+      placement:
+        constraints:
+          - node.id == $DOCKER_NODE_ID
+    environment:
+      - MODE=swarm
+    image: quay.io/tripviss/tripviss-nginx-proxy:nginx-gen
+    networks:
+      - default
+
+networks:
+  default: {}

@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  letsencrypt-companion:
+    build:
+      context: .
+      dockerfile: ./docker/letsencrypt-companion/Dockerfile
+    deploy:
+      placement:
+        constraints:
+          - node.id == $DOCKER_NODE_ID
+    environment:
+      # - ACME_CA_URI=https://acme-staging.api.letsencrypt.org/directory
+      # - DEBUG=true
+      - MODE=swarm
+    image: quay.io/tripviss/tripviss-nginx-proxy:letsencrypt-companion
+    networks:
+      - default
+    volumes:
+      - ./certs:/etc/nginx/certs:rw
+      - ./vhost.d:/etc/nginx/vhost.d:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - nginx-contents:/usr/share/nginx/html
+
+  nginx:
+    image: quay.io/tripviss/tripviss-nginx-proxy:nginx
+    labels:
+      - 'com.github.jwilder.nginx_proxy.nginx'
+    networks:
+      - default
+    ports:
+      - '80:80'
+      - '443:443'
+
+  nginx-gen:
+    environment:
+      - MODE=swarm
+    image: quay.io/tripviss/tripviss-nginx-proxy:nginx-gen
+    labels:
+      - 'com.github.jrcs.docker_letsencrypt_nginx_proxy_companion.docker_gen'
+    networks:
+      - default
+
+networks:
+  default: {}
