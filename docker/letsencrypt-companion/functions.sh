@@ -91,13 +91,13 @@ reload_nginx() {
 	if [ "$MODE" = 'swarm' ]; then
 		# Using separate nginx and docker-gen containers
 		filters='{"label": ["com.github.jrcs.docker_letsencrypt_nginx_proxy_companion.docker_gen"]}'
-		container_ids=$(docker_api "/containers/json" "GET" "filters=$filters" | jq -r '[.[] | .Id] | @sh')
+		container_ids=$(docker_api "/containers/json" "GET" "filters=$filters" | jq -r '[.[] | .Id] | join(" ")')
 		for container_id in ${container_ids}; do
 			reload_nginx_container "${container_id}"
 		done
 		# Using combined nginx-proxy container
 		filters='{"label": ["com.github.jrcs.docker_letsencrypt_nginx_proxy_companion.nginx_proxy"]}'
-		container_ids=$(docker_api "/containers/json" "GET" "filters=$filters" | jq -r '[.[] | .Id] | @sh')
+		container_ids=$(docker_api "/containers/json" "GET" "filters=$filters" | jq -r '[.[] | .Id] | join(" ")')
 		for container_id in ${container_ids}; do
 			reload_nginx_container "${container_id}" "exec"
 		done

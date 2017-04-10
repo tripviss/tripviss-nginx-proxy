@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/nginx-gen/Dockerfile
-    command: -notify reload-nginx.sh -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
+    command: -notify reload-nginx.sh -notify-output -watch -wait 5s:30s /etc/docker-gen/templates/nginx.tmpl /etc/nginx/conf.d/default.conf
     volumes:
       - ./certs:/etc/nginx/certs:ro
       - ./vhost.d:/etc/nginx/vhost.d:ro
