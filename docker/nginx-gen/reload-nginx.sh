@@ -3,28 +3,31 @@ set -e
 
 docker_api() {
 	local version='v1.25'
-	local scheme
-	local curl_opts=(-s)
 	local method=${2:-GET}
-	if [[ -n "${3:-}" ]]; then
-		if [ "$method" = 'POST' ]; then
-			curl_opts+=(-d "$3")
+	local host
+	local path="${1:-/}"
+	local data="${3:-}"
+	local curl_opts=(-s)
+	if [ "$method" = 'POST' ]; then
+		curl_opts+=(-d "$data")
+		if [ -n "$data" ]; then
 			curl_opts+=(-H 'Content-Type: application/json')
-		else
-			curl_opts+=(--data-urlencode "$3")
 		fi
+	elif [ -n "$data" ]; then
+		curl_opts+=(--get)
+		curl_opts+=(--data-urlencode "$data")
 	fi
-	if [[ -z "$DOCKER_HOST" ]];then
+	if [ -z "$DOCKER_HOST" ]; then
 		echo "Error DOCKER_HOST variable not set" >&2
 		return 1
 	fi
-	if [[ $DOCKER_HOST == unix://* ]]; then
+	if [ -n "${DOCKER_HOST#unix://}" ]; then
 		curl_opts+=(--unix-socket "${DOCKER_HOST#unix://}")
-		scheme='http://localhost'
+		host='http://localhost'
 	else
-		scheme="http://${DOCKER_HOST#*://}"
+		host="http://${DOCKER_HOST#*://}"
 	fi
-	curl "${curl_opts[@]}" -X"${method}" "${scheme}/${version}$1"
+	curl "${curl_opts[@]}" "${host}/${version}$path"
 }
 
 docker_kill() {
@@ -49,7 +52,7 @@ reload_nginx() {
 		for container_id in ${container_ids}; do
 			reload_nginx_container "${container_id}"
 		done
-	elif [[ -n "${NGINX_CONTAINER:-}" ]]; then
+	elif [ -n "${NGINX_CONTAINER:-}" ]; then
 		reload_nginx_container "${NGINX_CONTAINER}"
 	fi
 }
