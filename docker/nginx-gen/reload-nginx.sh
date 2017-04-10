@@ -45,7 +45,7 @@ reload_nginx() {
 	local container_id
 	if [ "$MODE" = 'swarm' ]; then
 		filters='{"label": ["com.github.jwilder.nginx_proxy.nginx"]}'
-		container_ids=$(docker_api "/containers/json" "GET" "filters=$filters" | jq -r '[.[] | .Id] | @sh')
+		container_ids=$(docker_api "/containers/json" "GET" "filters=$filters" | jq -r '[.[] | .Id] | join(" ")')
 		for container_id in ${container_ids}; do
 			reload_nginx_container "${container_id}"
 		done
