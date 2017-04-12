@@ -8,7 +8,7 @@ services:
     volumes:
       - ./certs:/etc/nginx/certs:ro
       - ./vhost.d:/etc/nginx/vhost.d:ro
-      - nginx-configs:/etc/nginx/conf.d
+      - nginx-conf:/etc/nginx/conf.d
       - nginx-contents:/usr/share/nginx/html
       - nginx-logs:/var/log/nginx
 
@@ -21,9 +21,9 @@ services:
       - ./certs:/etc/nginx/certs:ro
       - ./vhost.d:/etc/nginx/vhost.d:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - nginx-configs:/etc/nginx/conf.d
+      - nginx-conf:/etc/nginx/conf.d:nocopy
 
 volumes:
-  nginx-configs: {}
+  nginx-conf: {}
   nginx-contents: {}
   nginx-logs: {}

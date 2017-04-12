@@ -20,7 +20,7 @@ services:
       - ./certs:/etc/nginx/certs:rw
       - ./vhost.d:/etc/nginx/vhost.d:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - nginx-contents:/usr/share/nginx/html
+      - nginx-contents:/usr/share/nginx/html:nocopy
 
   nginx:
     image: quay.io/tripviss/tripviss-nginx-proxy:nginx
