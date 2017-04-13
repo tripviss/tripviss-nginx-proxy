@@ -6,6 +6,14 @@ services:
       placement:
         constraints:
           - node.id == $DOCKER_NODE_ID
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 10s
+    healthcheck:
+      interval: 30s
+      retries: 3
+      timeout: 30s
     image: quay.io/tripviss/tripviss-nginx-proxy:nginx
     labels:
       - 'com.github.jwilder.nginx_proxy.nginx'
@@ -20,8 +28,16 @@ services:
       placement:
         constraints:
           - node.id == $DOCKER_NODE_ID
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        window: 10s
     environment:
       - MODE=swarm
+    healthcheck:
+      interval: 30s
+      retries: 3
+      timeout: 30s
     image: quay.io/tripviss/tripviss-nginx-proxy:nginx-gen
     networks:
       - default
