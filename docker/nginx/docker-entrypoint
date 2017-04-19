@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+if [ "${1:0:1}" = '-' ]; then
+	set -- nginx "$@"
+fi
+
+if [ "$1" = 'nginx' ]; then
+	for f in /docker-entrypoint-conf.d/*; do
+		ln -sf "$f" /etc/nginx/conf.d/$(basename "$f")
+	done
+fi
+
+exec "$@"

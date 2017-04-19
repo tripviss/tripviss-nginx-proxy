@@ -1,6 +1,12 @@
 gzip_types
     application/ld+json
-    application/problem+json;
+    application/problem+json
+    application/vnd.ms-fontobject
+    application/x-font-ttf
+    font/opentype
+    image/bmp
+    image/svg+xml
+    image/x-icon;
 
 # ssl_verify_client optional;
 # ssl_client_certificate /etc/nginx/certs/api.tripviss.client-chain.crt;
