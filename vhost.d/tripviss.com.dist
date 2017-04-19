@@ -1,10 +1,1 @@
-gzip_types
-    application/manifest+json
-    application/vnd.ms-fontobject
-    application/x-font-ttf
-    application/x-web-app-manifest+json
-    font/opentype
-    image/bmp
-    image/svg+xml
-    image/x-icon
-    text/cache-manifest;
+include /etc/nginx/conf.d/gzip_types;
