@@ -1,3 +1,7 @@
+gzip_types
+    application/ld+json
+    application/problem+json;
+
 # ssl_verify_client optional;
 # ssl_client_certificate /etc/nginx/certs/api.tripviss.com.client-chain.crt;
 # ssl_verify_depth 2;
