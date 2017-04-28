@@ -3,8 +3,8 @@ version: '3'
 services:
   nginx:
     build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
+      context: ./docker/nginx
+      dockerfile: ./Dockerfile
     volumes:
       - ./certs:/etc/nginx/certs:ro
       - ./htpasswd:/etc/nginx/htpasswd:ro

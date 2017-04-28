@@ -3,8 +3,8 @@ version: '3'
 services:
   letsencrypt-companion:
     build:
-      context: .
-      dockerfile: ./docker/letsencrypt-companion/Dockerfile
+      context: ./docker/letsencrypt-companion
+      dockerfile: ./Dockerfile
     deploy:
       placement:
         constraints:

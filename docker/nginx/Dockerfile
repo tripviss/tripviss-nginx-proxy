@@ -1,10 +1,10 @@
 FROM nginx:1.11-alpine
 
-COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY docker/nginx/conf.d /docker-entrypoint-conf.d/
+COPY conf.d /docker-entrypoint-conf.d/
 
-COPY docker/nginx/docker-entrypoint /usr/local/bin/
+COPY docker-entrypoint /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint
 
 ENTRYPOINT ["docker-entrypoint"]
