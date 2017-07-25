@@ -1,11 +1,16 @@
-version: '3'
+version: '3.2'
 
 services:
   nginx:
     deploy:
+      endpoint_mode: dnsrr
       placement:
         constraints:
           - node.id == $DOCKER_NODE_ID
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
       restart_policy:
         condition: on-failure
         delay: 5s
@@ -25,9 +30,14 @@ services:
 
   nginx-gen:
     deploy:
+      endpoint_mode: dnsrr
       placement:
         constraints:
           - node.id == $DOCKER_NODE_ID
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
       restart_policy:
         condition: on-failure
         delay: 5s
