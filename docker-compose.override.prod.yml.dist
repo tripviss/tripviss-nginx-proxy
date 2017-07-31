@@ -69,6 +69,8 @@ services:
         published: 443
         target: 443
     restart: always
+    volumes:
+      - ./certs/dhparam.pem:/etc/nginx/dhparam/dhparam.pem:ro
 
   nginx-gen:
     deploy:
@@ -96,6 +98,8 @@ services:
     networks:
       - default
     restart: always
+    volumes:
+      - ./certs/dhparam.pem:/etc/nginx/dhparam/dhparam.pem:ro
 
 networks:
   default: {}

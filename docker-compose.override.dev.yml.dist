@@ -33,6 +33,8 @@ services:
         protocol: tcp
         published: 443
         target: 443
+    volumes:
+      - ./certs/dhparam.pem:/etc/nginx/dhparam/dhparam.pem:ro
 
   nginx-gen:
     deploy:
@@ -57,6 +59,8 @@ services:
     image: quay.io/tripviss/tripviss-nginx-proxy:nginx-gen
     networks:
       - default
+    volumes:
+      - ./certs/dhparam.pem:/etc/nginx/dhparam/dhparam.pem:ro
 
 networks:
   default: {}
